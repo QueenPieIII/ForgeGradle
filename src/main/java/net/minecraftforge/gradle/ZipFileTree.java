@@ -36,6 +36,7 @@ import org.gradle.api.UncheckedIOException;
 import org.gradle.api.file.FileVisitDetails;
 import org.gradle.api.file.FileVisitor;
 import org.gradle.api.file.RelativePath;
+import org.gradle.api.internal.file.FileTreeInternal;
 import org.gradle.api.internal.file.FileSystemSubset.Builder;
 import org.gradle.api.internal.file.collections.MinimalFileTree;
 import org.gradle.util.DeprecationLogger;
@@ -53,6 +54,16 @@ public class ZipFileTree implements MinimalFileTree
     public String getDisplayName()
     {
         return String.format("ZIP '%s'", zipFile);
+    }
+
+    public void visitStructure(MinimalFileTree arg0, FileTreeInternal arg1)
+    {
+        return; // Change
+    }
+
+    public void visitTreeOrBackingFile(FileVisitor arg0)
+    {
+        return; // Change
     }
 
     public void visit(FileVisitor visitor)

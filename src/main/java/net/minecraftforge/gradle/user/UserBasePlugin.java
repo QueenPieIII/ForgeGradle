@@ -1132,7 +1132,8 @@ public abstract class UserBasePlugin<T extends UserExtension> extends BasePlugin
             @Override
             public void execute(Object arg0)
             {
-                ((ScalaCompile) arg0).getScalaCompileOptions().setUseAnt(false);
+                //((ScalaCompile) arg0).getScalaCompileOptions().setUseAnt(false);
+                // Change
             }
         });
     }

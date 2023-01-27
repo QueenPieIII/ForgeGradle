@@ -35,6 +35,11 @@ public class DownloadTask extends CachedTask
         HttpURLConnection connect = (HttpURLConnection) (new URL(getUrl())).openConnection();
         connect.setRequestProperty("User-Agent", Constants.USER_AGENT);
         connect.setInstanceFollowRedirects(true);
+        if(connect.getResponseCode() == 403){
+            getLogger().debug("Received 403 status: " + getUrl() + " to " + outputFile);
+            connect.disconnect();
+            return;
+        }
 
         InputStream inStream = connect.getInputStream();
         OutputStream outStream = new FileOutputStream(outputFile);
