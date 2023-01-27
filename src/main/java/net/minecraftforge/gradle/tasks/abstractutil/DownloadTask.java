@@ -25,11 +25,9 @@ public class DownloadTask extends CachedTask
     public void doTask() throws IOException
     {
         File outputFile = getProject().file(getOutput());
-        outputFile.getParentFile().mkdirs();
-        outputFile.createNewFile();
 
         getLogger().debug("Downloading " + getUrl() + " to " + outputFile);
-        
+        System.out.println("Downloading " + getUrl() + " to " + outputFile);
         // TODO: check etags... maybe?
 
         HttpURLConnection connect = (HttpURLConnection) (new URL(getUrl())).openConnection();
@@ -37,9 +35,12 @@ public class DownloadTask extends CachedTask
         connect.setInstanceFollowRedirects(true);
         if(connect.getResponseCode() == 403){
             getLogger().debug("Received 403 status: " + getUrl() + " to " + outputFile);
+            System.out.println("Received 403 status: " + getUrl() + " to " + outputFile);
             connect.disconnect();
             return;
         }
+        outputFile.getParentFile().mkdirs();
+        outputFile.createNewFile();
 
         InputStream inStream = connect.getInputStream();
         OutputStream outStream = new FileOutputStream(outputFile);
