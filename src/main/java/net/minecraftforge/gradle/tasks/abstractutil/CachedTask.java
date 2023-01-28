@@ -123,7 +123,9 @@ public abstract class CachedTask extends DefaultTask
                         File hashFile = getHashFile(file);
                         if (!hashFile.exists())
                         {
-                            file.delete(); // Kill the output file if the hash doesn't exist, else gradle will think it's up-to-date
+                            getProject().getLogger().warn("Hash file not found but skipped deleting file!");
+                            System.out.println("Hash file not found but skipped deleting file!");
+                            //file.delete(); // Kill the output file if the hash doesn't exist, else gradle will think it's up-to-date
                             return true;
                         }
 
@@ -135,8 +137,10 @@ public abstract class CachedTask extends DefaultTask
                             getProject().getLogger().info(" Corrupted Cache!");
                             getProject().getLogger().info("Checksums found: " + foundMD5);
                             getProject().getLogger().info("Checksums calculated: " + calcMD5);
-                            file.delete();
-                            getHashFile(file).delete();
+                            getProject().getLogger().warn("Skipped deleting file!");
+                            System.out.println("Hash file not found but skipped deleting file!");
+                            //file.delete();
+                            //getHashFile(file).delete();
                             return true;
                         }
                         
